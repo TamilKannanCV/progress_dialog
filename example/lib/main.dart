@@ -26,11 +26,9 @@ class _MainAppState extends State<MainApp> {
           onPressed: () {
             final pd = ProgressDialog(context);
             pd.show(
-                title: "Progress Dialog",
-                description: "Timer is loading",
-                onTap: () {
-                  pd.dismiss();
-                });
+              title: "Progress Dialog",
+              description: "Timer is loading",
+            );
             int progress = 0;
             Timer.periodic(const Duration(seconds: 1), (ticker) {
               if (progress >= 100) {

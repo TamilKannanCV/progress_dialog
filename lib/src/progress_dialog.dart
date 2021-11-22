@@ -60,9 +60,9 @@ class ProgressDialog {
     String? title,
     int? percent,
     String? description,
-    Function()? onTap,
     bool barrierDismissible = true,
     bool showProgress = true,
+    List<Widget>? actions,
   }) {
     _initialized = true;
 
@@ -113,15 +113,16 @@ class ProgressDialog {
                   )
                 ],
               ),
-              actions: [
-                MaterialButton(
-                  elevation: 0.0,
-                  color: const Color(0xFF0085FF),
-                  onPressed: onTap,
-                  textColor: Colors.white,
-                  child: const Text("OK"),
-                )
-              ]),
+              actions: actions ??
+                  [
+                    MaterialButton(
+                      elevation: 0.0,
+                      color: const Color(0xFF0085FF),
+                      onPressed: () => dismiss(),
+                      textColor: Colors.white,
+                      child: const Text("OK"),
+                    )
+                  ]),
           onWillPop: () => Future.value(barrierDismissible),
         );
       },
