@@ -1,0 +1,32 @@
+name: progress_dialog
+description: This is a simple progress dialog
+version: 0.0.1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.20.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_web_plugins:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.tk.progress_dialog
+        pluginClass: ProgressDialogPlugin
+      ios:
+        pluginClass: ProgressDialogPlugin
+      windows:
+        pluginClass: ProgressDialogPlugin
+      web:
+        pluginClass: ProgressDialogWeb
+        fileName: progress_dialog_web.dart
