@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 class ProgressDialog {
   late ValueNotifier<String> _title;
@@ -115,12 +116,9 @@ class ProgressDialog {
               ),
               actions: actions ??
                   [
-                    MaterialButton(
-                      elevation: 0.0,
-                      color: const Color(0xFF0085FF),
+                    PrimaryButton(
+                      label: "OK",
                       onPressed: () => dismiss(),
-                      textColor: Colors.white,
-                      child: const Text("OK"),
                     )
                   ]),
           onWillPop: () => Future.value(barrierDismissible),
