@@ -8,6 +8,7 @@ class ProgressDialog {
   late ValueNotifier<String> _description;
   late ValueNotifier<int?> _percent;
   late ValueNotifier<bool> _showProgress;
+  late ValueNotifier<List<Widget>> _actions;
 
   bool _dialogIsOpen = false;
   final BuildContext _context;
@@ -18,6 +19,12 @@ class ProgressDialog {
     _percent = ValueNotifier(null);
     _description = ValueNotifier("This is a simple progress");
     _showProgress = ValueNotifier(true);
+    _actions = ValueNotifier([
+      PrimaryButton(
+        label: "OK",
+        onPressed: () => dismiss(),
+      )
+    ]);
   }
 
   ///Returns [bool] whether the dialog is open
@@ -37,6 +44,7 @@ class ProgressDialog {
     int? percent,
     String? description,
     bool showProgress = true,
+    List<Widget>? actions,
   }) {
     assert(_initialized == true,
         "Progress Dialog must be initialized by calling show()");
@@ -50,9 +58,12 @@ class ProgressDialog {
       _description.value = description;
     }
 
+    if (actions != null) {
+      _actions.value = actions;
+    }
+
     _dialogIsOpen = true;
 
-    log(showProgress.toString());
     _showProgress.value = showProgress;
   }
 
@@ -72,6 +83,7 @@ class ProgressDialog {
       description: description,
       percent: percent,
       showProgress: showProgress,
+      actions: actions,
     );
 
     showDialog(
@@ -114,13 +126,16 @@ class ProgressDialog {
                   )
                 ],
               ),
-              actions: actions ??
-                  [
-                    PrimaryButton(
-                      label: "OK",
-                      onPressed: () => dismiss(),
-                    )
-                  ]),
+              actions: [
+                ValueListenableBuilder(
+                  valueListenable: _actions,
+                  builder: (_, List<Widget> value, __) => Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: value,
+                  ),
+                )
+              ]),
           onWillPop: () => Future.value(barrierDismissible),
         );
       },

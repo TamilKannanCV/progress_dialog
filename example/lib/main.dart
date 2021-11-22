@@ -33,7 +33,15 @@ class _MainAppState extends State<MainApp> {
             Timer.periodic(const Duration(seconds: 1), (ticker) {
               if (progress >= 100) {
                 ticker.cancel();
-                pd.update(showProgress: false, description: "Completed");
+                pd.update(
+                    showProgress: false,
+                    description: "Completed",
+                    actions: [
+                      PrimaryButton(
+                        label: "DONE",
+                        onPressed: () => pd.dismiss(),
+                      )
+                    ]);
                 return;
               }
               pd.update(percent: progress += 10);
